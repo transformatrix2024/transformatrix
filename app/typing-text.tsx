@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import styles from "./landing.module.css";
 
 const START_DELAY_MS = 400;
 const CHAR_DELAY_MS = 90;
@@ -25,11 +26,11 @@ export default function TypingText({ text }: { text: string }) {
   }, [count, text]);
 
   return (
-    <h1 className="headline">
+    <h1 className={styles.headline}>
       {/* Full text for screen readers and search engines; the typed copy is visual only. */}
       <span className="sr-only">{text}</span>
       <span aria-hidden="true">{text.slice(0, count)}</span>
-      <span className="cursor" aria-hidden="true" />
+      <span className={styles.cursor} aria-hidden="true" />
     </h1>
   );
 }
