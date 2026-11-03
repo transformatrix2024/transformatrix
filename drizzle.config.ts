@@ -1,5 +1,5 @@
 import { defineConfig } from "drizzle-kit";
-import { tlsFor } from "./db/tls";
+import { tlsFor } from "./src/server/db/tls";
 
 // `drizzle-kit migrate` runs against DIRECT_URL (Supabase session pooler,
 // port 5432); the app itself uses DATABASE_URL (transaction pooler, port 6543).
@@ -20,8 +20,8 @@ function credentials(raw: string) {
 
 export default defineConfig({
   dialect: "postgresql",
-  schema: "./db/schema.ts",
-  out: "./db/migrations",
+  schema: "./src/server/db/schema.ts",
+  out: "./src/server/db/migrations",
   casing: "snake_case",
   dbCredentials: url ? credentials(url) : { url: "" },
 });
