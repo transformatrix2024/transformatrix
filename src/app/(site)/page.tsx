@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { AutoScrollRow } from "@/components/site/auto-scroll-row";
 import { FaqList } from "@/components/site/faq-list";
 import { Nav } from "@/components/site/page-hero";
 import {
-  CARD_ROW,
+  CARD_GRID,
   Container,
   ImagePlaceholder,
   SectionHeading,
@@ -22,10 +21,10 @@ export default function HomePage() {
   return (
     <Container>
       {/* Hero */}
-      <section className="flex min-h-[560px] flex-col rounded-lg bg-tm-card p-4 sm:p-6 lg:min-h-[600px]">
+      <section className="flex min-h-[480px] flex-col rounded-lg bg-tm-card p-4 sm:min-h-[560px] sm:p-6 lg:min-h-[600px]">
         <Nav />
         <div className="mt-10 flex flex-1 flex-col justify-between gap-14 lg:mt-14">
-          <div className="max-w-[300px] self-end text-right">
+          <div className="max-w-[260px] self-end text-right sm:max-w-[300px]">
             <p className="text-[13px] leading-relaxed">
               Workshops, trainings, and 1:1 sessions designed to support healing, awareness, and embodied
               self-leadership — for adults, women, children, and beyond.
@@ -49,32 +48,32 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Featured programs (auto-scrolling on phones) and post */}
-      <section className="mt-4 grid gap-6 sm:grid-cols-4 sm:gap-3" aria-label="Featured">
-        <AutoScrollRow className="sm:col-span-3">
-          <ProgramCard
-            title="The Ink Within"
-            tagline="Journaling for Reflection & Inner Alignment"
-            href="/programs/ink-within"
-            cta="Explore Workshops"
-          />
-          <ProgramCard
-            title="She Rises"
-            tagline="A Women's Empowerment & Inner Alignment Experience"
-            href="/programs/she-rises"
-            cta="Discover Experiences"
-          />
-          <ProgramCard
-            title="Quantum Healing Practitioner"
-            tagline="Quantum Healing Practitioner Course - Lvl 1"
-            href="/programs/quantum-resonance"
-            cta="Train as a Practitioner"
-          />
-        </AutoScrollRow>
+      {/* Featured programs and post: four across, 2×2 on phones */}
+      <section className={`mt-4 ${CARD_GRID}`} aria-label="Featured">
+        <ProgramCard
+          title="The Ink Within"
+          tagline="Journaling for Reflection & Inner Alignment"
+          href="/programs/ink-within"
+          cta="Explore Workshops"
+        />
+        <ProgramCard
+          title="She Rises"
+          tagline="A Women's Empowerment & Inner Alignment Experience"
+          href="/programs/she-rises"
+          cta="Discover Experiences"
+        />
+        <ProgramCard
+          title="Quantum Healing Practitioner"
+          tagline="Quantum Healing Practitioner Course - Lvl 1"
+          href="/programs/quantum-resonance"
+          cta="Train as a Practitioner"
+        />
         <article className="flex flex-col p-1">
-          <div className="flex gap-3">
-            <ImagePlaceholder className="aspect-square w-[42%] shrink-0 rounded-md" />
-            <h3 className="text-[17px] leading-snug font-medium">Why Inner Work Needs Integration, Not Intensity</h3>
+          <div className="flex flex-col gap-2 sm:flex-row sm:gap-3">
+            <ImagePlaceholder className="aspect-[16/10] w-full shrink-0 rounded-md sm:aspect-square sm:w-[42%]" />
+            <h3 className="text-[15px] leading-snug font-medium sm:text-[17px]">
+              Why Inner Work Needs Integration, Not Intensity
+            </h3>
           </div>
           <div className="mt-2 flex flex-wrap justify-end gap-1.5">
             <Tag>Reflection</Tag>
@@ -88,11 +87,11 @@ export default function HomePage() {
       </section>
 
       {/* Experiences + participants */}
-      <section className="mt-24 grid gap-10 sm:grid-cols-[1.2fr_1fr] sm:items-start lg:mt-28">
+      <section className="mt-16 grid gap-8 sm:mt-24 sm:grid-cols-[1.2fr_1fr] sm:items-start sm:gap-10 lg:mt-28">
         <p className="max-w-[17ch] text-[clamp(2rem,3.6vw,2.75rem)] leading-[1.15] font-medium tracking-tight">
           Experiences designed for inner work — integrated into everyday life.
         </p>
-        <div className="max-w-sm sm:justify-self-end">
+        <div className="max-w-[85%] justify-self-end sm:max-w-sm">
           <div className="flex items-center gap-3">
             <div className="flex -space-x-3" aria-hidden>
               {[0, 1, 2, 3].map((i) => (
@@ -121,8 +120,8 @@ export default function HomePage() {
       </section>
 
       {/* Philosophy */}
-      <section className="mt-28 grid gap-8 md:grid-cols-[1.2fr_1fr] lg:mt-36 lg:grid-cols-[0.8fr_1.7fr_1.5fr]">
-        <p className="text-xs font-medium tracking-wide uppercase md:col-span-2 lg:col-span-1">About Transformatrix</p>
+      <section className="mt-20 grid grid-cols-[1.4fr_1fr] gap-x-4 gap-y-5 sm:mt-28 sm:gap-8 md:grid-cols-[1.2fr_1fr] lg:mt-36 lg:grid-cols-[0.8fr_1.7fr_1.5fr]">
+        <p className="col-span-2 text-xs font-medium tracking-wide uppercase lg:col-span-1">About Transformatrix</p>
         <div className="flex flex-col">
           <SectionHeading className="max-w-[16ch] text-[clamp(1.5rem,2.4vw,1.75rem)]">
             The Philosophy Behind Transformatrix
@@ -138,11 +137,11 @@ export default function HomePage() {
               and integrate change into everyday life — gently and sustainably.
             </p>
           </div>
-          <SiteButton href="/about" className="mt-8 md:mt-auto">
+          <SiteButton href="/about" className="mt-6 md:mt-auto">
             About Us
           </SiteButton>
         </div>
-        <ImagePlaceholder className="aspect-[4/3] w-full" />
+        <ImagePlaceholder className="aspect-[3/4] w-full self-start md:aspect-[4/3]" />
       </section>
 
       {/* She Rises */}
@@ -155,7 +154,7 @@ export default function HomePage() {
       </section>
 
       {/* Reflections (testimonials to come) */}
-      <section id="reflections" aria-label="Reflections" className={`mt-12 scroll-mt-6 ${CARD_ROW}`}>
+      <section id="reflections" aria-label="Reflections" className={`mt-12 scroll-mt-6 ${CARD_GRID}`}>
         {[0, 1, 2, 3].map((i) => (
           <figure key={i} className="flex flex-col gap-4 rounded-md bg-tm-card p-3">
             <div className="flex items-center gap-3">
@@ -188,8 +187,8 @@ export default function HomePage() {
       {/* FAQ */}
       <section className="mt-16">
         <SectionHeading>Questions You May Be Holding</SectionHeading>
-        <div className="mt-6 grid gap-4 sm:grid-cols-[1fr_1.6fr] sm:gap-8">
-          <ImagePlaceholder className="aspect-[3/4] w-full max-sm:hidden" />
+        <div className="mt-6 grid grid-cols-[1fr_1.8fr] gap-3 sm:grid-cols-[1fr_1.6fr] sm:gap-8">
+          <ImagePlaceholder className="aspect-[3/4] w-full self-start" />
           <div className="flex flex-col gap-4">
             <FaqList />
             <SiteButton href="/contact#faq" variant="mono">

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/site/page-hero";
-import { CARD_ROW, Container, SectionHeading, SiteButton } from "@/components/site/primitives";
+import { CARD_GRID, Container, SectionHeading, SiteButton } from "@/components/site/primitives";
 import { ProgramTile } from "@/components/site/program-card";
 import { FAMILIES, PROGRAMS } from "@/content/programs";
 
@@ -26,7 +26,7 @@ export default function ProgramsPage() {
       {FAMILIES.map((family) => (
         <section key={family.id} id={family.id} className="mt-16 scroll-mt-6">
           <SectionHeading>{family.label}</SectionHeading>
-          <div className={`mt-5 ${CARD_ROW}`}>
+          <div className={`mt-5 ${CARD_GRID}`}>
             {PROGRAMS.filter((p) => p.family === family.id).map((program) => (
               <ProgramTile key={program.slug} program={program} />
             ))}

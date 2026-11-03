@@ -61,7 +61,8 @@ export function CalendarPopover({ dates, sample }: { dates: UpcomingDate[]; samp
   return (
     <div
       ref={wrapper}
-      className="relative"
+      // On phones the panel positions against the header (full width below it).
+      className="max-sm:static sm:relative"
       onPointerEnter={(e) => e.pointerType === "mouse" && show()}
       onPointerLeave={(e) => e.pointerType === "mouse" && hideSoon()}
       onBlur={(e) => {
@@ -93,7 +94,7 @@ export function CalendarPopover({ dates, sample }: { dates: UpcomingDate[]; samp
           role="dialog"
           aria-label="Upcoming dates"
           tabIndex={-1}
-          className="fixed inset-x-4 top-20 z-50 outline-none animate-in fade-in-0 zoom-in-95 slide-in-from-top-1 sm:absolute sm:inset-x-auto sm:top-full sm:right-0 sm:mt-3 sm:w-[380px] sm:origin-top-right"
+          className="absolute inset-x-0 top-full z-50 mt-3 outline-none animate-in fade-in-0 zoom-in-95 slide-in-from-top-1 sm:inset-x-auto sm:right-0 sm:w-[380px] sm:origin-top-right"
         >
           <MonthCalendar dates={dates} sample={sample} onNavigate={() => setOpen(false)} />
         </div>

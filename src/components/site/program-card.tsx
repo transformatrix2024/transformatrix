@@ -17,8 +17,8 @@ export function ProgramCard({
   className?: string;
 }) {
   return (
-    <div className={cn("flex min-h-40 flex-col justify-end rounded-md bg-tm-soft p-4", className)}>
-      <h3 className="text-[17px] leading-snug font-medium">{title}</h3>
+    <div className={cn("flex min-h-40 flex-col justify-end rounded-md bg-tm-soft p-3 sm:p-4", className)}>
+      <h3 className="text-[15px] leading-snug font-medium sm:text-[17px]">{title}</h3>
       <p className="mt-1 text-xs leading-relaxed text-black/70">{tagline}</p>
       <SiteButton href={href} variant="mono" className="mt-3">
         {cta}
@@ -34,7 +34,7 @@ export function ProgramTile({ program }: { program: Program }) {
       tagline={program.tagline}
       href={`/programs/${program.slug}`}
       cta={program.comingSoon ? "Join the waitlist" : "View program"}
-      className="min-h-48"
+      className="sm:min-h-48"
     />
   );
 }

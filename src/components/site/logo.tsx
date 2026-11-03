@@ -26,7 +26,8 @@ function Asterisk({ className }: { className?: string }) {
 // Small logo for the navigation bar.
 export function Wordmark({ className }: { className?: string }) {
   return (
-    <span className={cn("inline-flex flex-col items-end leading-none", className)}>
+    // Artwork: the link around it carries the accessible name.
+    <span aria-hidden className={cn("inline-flex flex-col items-end leading-none", className)}>
       <span className="font-display text-[15px] font-medium tracking-[0.04em]">
         TRANSFORMATRIX
         <sup className="ml-px text-[8px]">*</sup>
@@ -39,12 +40,12 @@ export function Wordmark({ className }: { className?: string }) {
 // Large logo for the footer.
 export function FooterWordmark() {
   return (
-    <div className="inline-flex flex-col items-end text-white">
-      <div className="relative font-display text-[clamp(2.25rem,8vw,5.5rem)] leading-none font-normal tracking-[0.02em]">
+    <div aria-hidden className="inline-flex flex-col items-end text-white">
+      <div className="relative font-display text-[clamp(1.5rem,6.2vw,5.5rem)] leading-none font-normal tracking-[0.02em]">
         TRANSFORMATRIX
         <Asterisk className="absolute -top-[0.28em] -right-[0.42em] size-[0.42em]" />
       </div>
-      <p className="mt-1 font-display text-[clamp(0.9rem,2.6vw,1.75rem)] leading-none tracking-[0.06em]">
+      <p className="mt-1 font-display text-[clamp(0.6rem,2vw,1.75rem)] leading-none tracking-[0.06em]">
         THE SOUL STUDIO
       </p>
     </div>

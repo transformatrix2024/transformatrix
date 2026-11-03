@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-// A row of four cards, as on desktop. On phones it becomes a swipeable row
-// instead of stacking, so the page keeps its desktop rhythm.
-export const CARD_ROW =
-  "-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] *:w-[72%] *:shrink-0 *:snap-start sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0 sm:pb-0 sm:*:w-auto";
+// A row of four cards, as on desktop. On phones it wraps into a 2×2 grid so
+// every card stays visible and readable without scrolling sideways.
+export const CARD_GRID = "grid grid-cols-2 gap-3 sm:grid-cols-4";
 
 // Page width used by every section.
 export function Container({ className, children }: { className?: string; children: React.ReactNode }) {
@@ -32,7 +31,7 @@ export function SiteButton({
   children: React.ReactNode;
 }) {
   const classes = cn(
-    "inline-flex w-fit items-center gap-1.5 whitespace-nowrap transition-colors focus-visible:ring-2 focus-visible:ring-black/40 focus-visible:outline-none",
+    "inline-flex w-fit items-center gap-1.5 whitespace-nowrap transition-colors max-sm:whitespace-normal max-sm:text-left focus-visible:ring-2 focus-visible:ring-black/40 focus-visible:outline-none",
     BUTTON[variant],
     className,
   );
