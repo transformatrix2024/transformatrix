@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { AutoScrollRow } from "@/components/site/auto-scroll-row";
 import { FaqList } from "@/components/site/faq-list";
 import { Nav } from "@/components/site/page-hero";
 import {
@@ -48,26 +49,28 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Featured programs and post */}
-      <section className={`mt-4 ${CARD_ROW}`} aria-label="Featured">
-        <ProgramCard
-          title="The Ink Within"
-          tagline="Journaling for Reflection & Inner Alignment"
-          href="/programs/ink-within"
-          cta="Explore Workshops"
-        />
-        <ProgramCard
-          title="She Rises"
-          tagline="A Women's Empowerment & Inner Alignment Experience"
-          href="/programs/she-rises"
-          cta="Discover Experiences"
-        />
-        <ProgramCard
-          title="Quantum Healing Practitioner"
-          tagline="Quantum Healing Practitioner Course - Lvl 1"
-          href="/programs/quantum-resonance"
-          cta="Train as a Practitioner"
-        />
+      {/* Featured programs (auto-scrolling on phones) and post */}
+      <section className="mt-4 grid gap-6 sm:grid-cols-4 sm:gap-3" aria-label="Featured">
+        <AutoScrollRow className="sm:col-span-3">
+          <ProgramCard
+            title="The Ink Within"
+            tagline="Journaling for Reflection & Inner Alignment"
+            href="/programs/ink-within"
+            cta="Explore Workshops"
+          />
+          <ProgramCard
+            title="She Rises"
+            tagline="A Women's Empowerment & Inner Alignment Experience"
+            href="/programs/she-rises"
+            cta="Discover Experiences"
+          />
+          <ProgramCard
+            title="Quantum Healing Practitioner"
+            tagline="Quantum Healing Practitioner Course - Lvl 1"
+            href="/programs/quantum-resonance"
+            cta="Train as a Practitioner"
+          />
+        </AutoScrollRow>
         <article className="flex flex-col p-1">
           <div className="flex gap-3">
             <ImagePlaceholder className="aspect-square w-[42%] shrink-0 rounded-md" />

@@ -8,7 +8,7 @@ export const CARD_ROW =
 
 // Page width used by every section.
 export function Container({ className, children }: { className?: string; children: React.ReactNode }) {
-  return <div className={cn("mx-auto w-full max-w-[1200px] px-4 sm:px-6", className)}>{children}</div>;
+  return <div className={cn("mx-auto w-full max-w-[1360px] px-4 sm:px-6", className)}>{children}</div>;
 }
 
 const BUTTON = {
