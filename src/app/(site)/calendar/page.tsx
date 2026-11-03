@@ -41,7 +41,7 @@ export default async function CalendarPage({ searchParams }: { searchParams: Pro
         )}
       </PageHero>
 
-      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-2 sm:mt-6 sm:gap-3">
         <div className="flex w-fit rounded-full bg-tm-pill p-1" role="group" aria-label="View">
           {(["list", "month"] as const).map((v) => (
             <Link

@@ -37,7 +37,7 @@ export default async function BlogPage({ searchParams }: { searchParams: Promise
           Posts about {active} are coming soon.
         </p>
       ) : (
-        <div className="mt-8 grid grid-cols-2 gap-x-3 gap-y-8 lg:grid-cols-3">
+        <div className="mt-6 grid grid-cols-3 gap-x-2 gap-y-6 sm:mt-8 sm:gap-x-3 sm:gap-y-8">
           {posts.map((post) => (
             <article key={post.slug} className="flex flex-col">
               <ImagePlaceholder className="aspect-[4/3] w-full" />

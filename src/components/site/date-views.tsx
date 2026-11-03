@@ -42,26 +42,26 @@ export function DateList({
           <h3 className="font-mono text-xs tracking-wider text-black/60 uppercase">{monthLabel(month)}</h3>
           <ul className="mt-3 divide-y divide-black/10 border-y border-black/10">
             {items.map((d) => (
-              <li key={d.id} className="grid grid-cols-[3.5rem_1fr] gap-4 py-4 sm:grid-cols-[4.5rem_1fr_auto] sm:items-center">
+              <li key={d.id} className="grid grid-cols-[2.5rem_minmax(0,1fr)_auto] items-center gap-2 py-3 sm:grid-cols-[4.5rem_minmax(0,1fr)_auto] sm:gap-4 sm:py-4">
                 <div className="text-center">
-                  <p className="text-2xl leading-none font-medium">{dayLabel(dayKey(d.start), "d")}</p>
+                  <p className="text-lg leading-none font-medium sm:text-2xl">{dayLabel(dayKey(d.start), "d")}</p>
                   <p className="mt-1 font-mono text-[10px] text-black/55 uppercase">{dayLabel(dayKey(d.start), "EEE")}</p>
                 </div>
                 <div className="min-w-0">
                   <p className="font-mono text-xs font-semibold">{d.end ? whenLabel(d) : timeLabel(d.start)}</p>
-                  <p className="mt-0.5 text-[15px] font-medium">{d.title}</p>
-                  <p className="mt-0.5 text-sm text-black/60">{placeLabel(d)}</p>
+                  <p className="mt-0.5 text-xs font-medium sm:text-[15px]">{d.title}</p>
+                  <p className="mt-0.5 text-[11px] text-black/60 sm:text-sm">{placeLabel(d)}</p>
                 </div>
-                <div className="col-start-2 flex items-center gap-3 sm:col-start-auto">
+                <div className="flex flex-col items-end gap-1 sm:flex-row sm:items-center sm:gap-3">
                   {linkToProgram && (
                     <Link
                       href={`/programs/${d.program}`}
-                      className="rounded-md bg-tm-ink px-3 py-1.5 font-mono text-xs text-white hover:bg-black/75"
+                      className="rounded-md bg-tm-ink px-2 py-1 font-mono text-[10px] whitespace-nowrap text-white hover:bg-black/75 sm:px-3 sm:py-1.5 sm:text-xs"
                     >
                       {getProgram(d.program) ? "View program" : "Details"}
                     </Link>
                   )}
-                  <span className="font-mono text-[10px] text-black/45 uppercase">Enrolment opens soon</span>
+                  <span className="text-right font-mono text-[9px] text-black/45 uppercase sm:text-[10px]">Enrolment opens soon</span>
                 </div>
               </li>
             ))}

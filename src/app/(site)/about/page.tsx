@@ -16,7 +16,7 @@ export default function AboutPage() {
         intro="Transformatrix is a space for experiential inner work — rooted in awareness, honesty, and lived practice."
       />
 
-      <section className="mt-16 grid gap-8 md:grid-cols-[1.2fr_1fr]">
+      <section className="mt-8 grid grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] gap-4 sm:mt-16 sm:gap-8">
         <div>
           <SectionHeading>The Philosophy Behind Transformatrix</SectionHeading>
           <div className="mt-5 flex max-w-lg flex-col gap-3 text-[15px] leading-relaxed">
@@ -30,7 +30,7 @@ export default function AboutPage() {
         <ImagePlaceholder className="aspect-[4/3] w-full" />
       </section>
 
-      <section className="mt-16 grid gap-3 md:grid-cols-2">
+      <section className="mt-8 grid grid-cols-2 gap-3 sm:mt-16">
         {["Our approach", "Accreditations"].map((title) => (
           <div key={title} className="rounded-lg bg-tm-soft p-6">
             <h2 className="text-xl font-medium">{title}</h2>
@@ -40,7 +40,7 @@ export default function AboutPage() {
         ))}
       </section>
 
-      <section className="mt-16 grid gap-3 md:grid-cols-2">
+      <section className="mt-8 grid grid-cols-2 gap-3 sm:mt-16">
         {[
           { href: "/about/facilitators", title: "Facilitators", text: "Meet Nalini, Anjali and our guest facilitators." },
           { href: "/contact", title: "Contact", text: "Write to us, book a discovery call, or read the FAQ." },

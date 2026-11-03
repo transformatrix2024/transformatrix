@@ -15,11 +15,11 @@ export default function ContactPage() {
         intro="If you're feeling called but unsure which space is right for you, reach out. We'll guide you."
       />
 
-      <section className="mt-12 grid gap-6 md:grid-cols-[1.4fr_1fr]">
+      <section className="mt-6 grid grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] gap-3 sm:mt-12 sm:gap-6">
         <div className="rounded-lg bg-tm-soft p-6">
           <h2 className="text-xl font-medium">Write to us</h2>
           <SoonForm button="Send message" layout="stacked" className="mt-4">
-            <div className="grid gap-2 sm:grid-cols-2">
+            <div className="grid grid-cols-2 gap-2">
               <SoonInput label="Your name" autoComplete="name" required />
               <SoonInput label="Your email" type="email" autoComplete="email" required />
             </div>

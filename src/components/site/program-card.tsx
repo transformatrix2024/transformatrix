@@ -17,10 +17,10 @@ export function ProgramCard({
   className?: string;
 }) {
   return (
-    <div className={cn("flex min-h-40 flex-col justify-end rounded-md bg-tm-soft p-3 sm:p-4", className)}>
-      <h3 className="text-[15px] leading-snug font-medium sm:text-[17px]">{title}</h3>
-      <p className="mt-1 text-xs leading-relaxed text-black/70">{tagline}</p>
-      <SiteButton href={href} variant="mono" className="mt-3">
+    <div className={cn("flex min-h-[110px] flex-col justify-end rounded-md bg-tm-soft p-2 sm:min-h-40 sm:p-4", className)}>
+      <h3 className="text-[11px] leading-tight font-medium sm:text-[17px] sm:leading-snug">{title}</h3>
+      <p className="mt-1 text-[9px] leading-snug text-black/70 sm:text-xs sm:leading-relaxed">{tagline}</p>
+      <SiteButton href={href} variant="mono" className="mt-2 sm:mt-3">
         {cta}
       </SiteButton>
     </div>

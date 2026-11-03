@@ -24,11 +24,11 @@ export function PageHero({
   children?: React.ReactNode;
 }) {
   return (
-    <section className={cn("rounded-lg bg-tm-card p-4 sm:p-6", className)}>
+    <section className={cn("rounded-lg bg-tm-card p-3 sm:p-6", className)}>
       <Nav />
-      <div className="mt-16 max-w-2xl sm:mt-24">
+      <div className="mt-8 max-w-2xl sm:mt-24">
         {crumbs && (
-          <nav aria-label="Breadcrumb" className="mb-3 font-mono text-xs text-black/60">
+          <nav aria-label="Breadcrumb" className="mb-2 font-mono text-[10px] text-black/60 sm:mb-3 sm:text-xs">
             {crumbs.map((c) => (
               <Fragment key={c.href}>
                 <Link href={c.href} className="hover:text-black hover:underline">
@@ -39,8 +39,8 @@ export function PageHero({
             ))}
           </nav>
         )}
-        <h1 className="text-[clamp(2.25rem,5vw,3.25rem)] leading-[1.08] font-medium tracking-tight">{title}</h1>
-        {intro && <div className="mt-4 max-w-xl text-[15px] leading-relaxed text-black/70">{intro}</div>}
+        <h1 className="text-[clamp(1.4rem,5vw,3.25rem)] leading-[1.08] font-medium tracking-tight">{title}</h1>
+        {intro && <div className="mt-2 max-w-xl text-[11px] leading-relaxed text-black/70 sm:mt-4 sm:text-[15px]">{intro}</div>}
         {children}
       </div>
     </section>

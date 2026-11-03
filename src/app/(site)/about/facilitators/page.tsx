@@ -26,7 +26,7 @@ export default function FacilitatorsPage() {
           <section
             key={person.id}
             id={person.id}
-            className="grid scroll-mt-6 grid-cols-[1fr_minmax(0,40%)] gap-4 rounded-lg bg-tm-card p-4 sm:gap-6 sm:p-8"
+            className="grid scroll-mt-6 grid-cols-[minmax(0,1fr)_minmax(0,40%)] gap-4 rounded-lg bg-tm-card p-4 sm:gap-6 sm:p-8"
           >
             <div className="flex flex-col justify-between gap-8">
               <div>

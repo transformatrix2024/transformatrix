@@ -83,9 +83,26 @@ export function CalendarPopover({ dates, sample }: { dates: UpcomingDate[]; samp
           setOpen((v) => (lastPointer.current === "mouse" ? true : !v));
           lastPointer.current = "";
         }}
-        className="group grid size-8 place-items-center rounded-full focus-visible:ring-2 focus-visible:ring-black/40 focus-visible:outline-none"
+        className="group relative grid size-6 place-items-center rounded-full sm:size-8 focus-visible:ring-2 focus-visible:ring-black/40 focus-visible:outline-none"
       >
-        <span className="size-5 rounded-full bg-tm-ink transition-transform group-hover:scale-110 group-aria-expanded:scale-110" />
+        {!open && (
+          <span aria-hidden className="absolute size-4 rounded-full bg-tm-ink motion-safe:animate-tm-ripple sm:size-5" />
+        )}
+        <span
+          aria-hidden
+          className={cn(
+            "relative grid size-4 place-items-center rounded-full bg-tm-ink transition-[scale] duration-300 ease-spring sm:size-5",
+            "group-hover:scale-125 group-active:scale-90 motion-safe:animate-tm-nudge",
+            open && "scale-110 motion-safe:animate-none",
+          )}
+        >
+          <span
+            className={cn(
+              "size-1 rounded-full bg-white transition-[scale] duration-300 ease-spring sm:size-1.5",
+              open ? "scale-100" : "scale-0",
+            )}
+          />
+        </span>
       </button>
 
       {open && (
@@ -94,7 +111,7 @@ export function CalendarPopover({ dates, sample }: { dates: UpcomingDate[]; samp
           role="dialog"
           aria-label="Upcoming dates"
           tabIndex={-1}
-          className="absolute inset-x-0 top-full z-50 mt-3 outline-none animate-in fade-in-0 zoom-in-95 slide-in-from-top-1 sm:inset-x-auto sm:right-0 sm:w-[380px] sm:origin-top-right"
+          className="absolute inset-x-0 top-full z-50 mt-3 origin-top-right outline-none motion-safe:animate-tm-pop sm:inset-x-auto sm:right-0 sm:w-[380px]"
         >
           <MonthCalendar dates={dates} sample={sample} onNavigate={() => setOpen(false)} />
         </div>
@@ -118,16 +135,21 @@ function MonthCalendar({
   const nextKey = useMemo(() => [...byDay.keys()].sort().find((k) => k >= today), [byDay, today]);
   const [month, setMonth] = useState((nextKey ?? today).slice(0, 7));
   const [selected, setSelected] = useState(nextKey ?? today);
+  // Which way the last month change went, so the days slide in from that side.
+  const [direction, setDirection] = useState(0);
   const selectedDates = byDay.get(selected) ?? [];
   const nextAfterSelected = [...byDay.keys()].sort().find((k) => k > selected && k >= today);
 
   function select(key: string) {
+    const next = key.slice(0, 7);
+    if (next !== month) setDirection(next > month ? 1 : -1);
     setSelected(key);
-    setMonth(key.slice(0, 7));
+    setMonth(next);
   }
 
   // Moving to another month selects its first day with something on.
   function goToMonth(next: string) {
+    setDirection(next > month ? 1 : -1);
     setMonth(next);
     setSelected([...byDay.keys()].sort().find((k) => k.startsWith(next)) ?? `${next}-01`);
   }
@@ -140,8 +162,14 @@ function MonthCalendar({
           <MonthButton label="Previous month" onClick={() => goToMonth(shiftMonth(month, -1))}>
             <ChevronLeft className="size-4" />
           </MonthButton>
-          <p className="min-w-30 text-center text-sm font-medium" aria-live="polite">
-            {monthLabel(month)}
+          <p className="min-w-30 overflow-hidden text-center text-sm font-medium" aria-live="polite">
+            <span
+              key={month}
+              className="inline-block motion-safe:animate-tm-slide"
+              style={{ "--tm-dx": `${direction * 14}px` } as React.CSSProperties}
+            >
+              {monthLabel(month)}
+            </span>
           </p>
           <MonthButton label="Next month" onClick={() => goToMonth(shiftMonth(month, 1))}>
             <ChevronRight className="size-4" />
@@ -149,7 +177,11 @@ function MonthCalendar({
         </div>
       </div>
 
-      <div className="mt-3 grid grid-cols-7 gap-1.5">
+      <div
+        key={month}
+        className="mt-3 grid grid-cols-7 gap-1.5"
+        style={{ "--tm-dx": `${direction * 16}px` } as React.CSSProperties}
+      >
         {WEEKDAYS.map((w) => (
           <span
             key={w}
@@ -160,7 +192,7 @@ function MonthCalendar({
         ))}
         {monthWeeks(month)
           .flat()
-          .map((cell) => {
+          .map((cell, index) => {
             if (!cell.inMonth) return <span key={cell.key} aria-hidden />;
             const count = byDay.get(cell.key)?.length ?? 0;
             const isSelected = cell.key === selected;
@@ -171,20 +203,28 @@ function MonthCalendar({
                 onClick={() => setSelected(cell.key)}
                 aria-pressed={isSelected}
                 aria-label={`${dayLabel(cell.key, "EEEE d MMMM")}${count ? `, ${count} ${count === 1 ? "session" : "sessions"}` : ""}`}
+                style={{ animationDelay: `${index * 12}ms` }}
                 className={cn(
-                  "relative grid aspect-square place-items-center rounded-lg text-xs font-medium transition-colors",
-                  "bg-white/[0.06] text-white/75 hover:bg-white/15",
+                  "group/day relative grid aspect-square place-items-center rounded-lg text-xs font-medium motion-safe:animate-tm-rise",
+                  "bg-white/[0.06] text-white/75 transition-[background-color,scale,translate] duration-300 ease-spring",
+                  "hover:-translate-y-0.5 hover:scale-110 hover:bg-white/15 active:scale-95",
                   count > 0 && "bg-white/[0.14] text-white",
                   cell.key < today && "text-white/30",
                   cell.key === today && "ring-1 ring-white/70",
                   isSelected && "bg-white text-tm-ink hover:bg-white",
                 )}
               >
-                {cell.day}
+                <span key={isSelected ? "on" : "off"} className={cn(isSelected && "motion-safe:animate-tm-select")}>
+                  {cell.day}
+                </span>
                 {count > 0 && (
                   <span className="absolute bottom-1.5 flex gap-0.5">
                     {Array.from({ length: Math.min(count, 3) }, (_, i) => (
-                      <span key={i} className="size-1 rounded-full bg-current" />
+                      <span
+                        key={i}
+                        style={{ animationDelay: `${i * 70}ms` }}
+                        className="size-1 rounded-full bg-current motion-safe:group-hover/day:animate-tm-hop"
+                      />
                     ))}
                   </span>
                 )}
@@ -194,17 +234,17 @@ function MonthCalendar({
       </div>
 
       <div className="mt-4 border-t border-white/10 pt-3">
-        <p className="font-mono text-[11px] tracking-wider text-white/55 uppercase">
+        <p key={selected} className="font-mono text-[11px] tracking-wider text-white/55 uppercase motion-safe:animate-tm-slide">
           {dayLabel(selected, "EEEE, d MMMM")}
         </p>
         {selectedDates.length > 0 ? (
-          <ul className="mt-2 flex flex-col gap-1">
-            {selectedDates.map((d) => (
-              <li key={d.id}>
+          <ul key={selected} className="mt-2 flex flex-col gap-1">
+            {selectedDates.map((d, i) => (
+              <li key={d.id} className="motion-safe:animate-tm-slide" style={{ animationDelay: `${60 + i * 60}ms` }}>
                 <Link
                   href={`/programs/${d.program}`}
                   onClick={onNavigate}
-                  className="flex gap-3 rounded-lg p-2 hover:bg-white/10"
+                  className="group/item flex gap-3 rounded-lg p-2 transition-[background-color,translate] duration-300 ease-spring hover:translate-x-1 hover:bg-white/10"
                 >
                   <span className="w-11 shrink-0 font-mono text-xs font-semibold">
                     {dayKey(d.start) === selected ? timeLabel(d.start) : "cont."}
@@ -221,8 +261,8 @@ function MonthCalendar({
             ))}
           </ul>
         ) : (
-          <p className="mt-2 text-sm text-white/55">
-            Nothing on this day.{" "}
+          <p key={selected} className="mt-2 text-sm text-white/55 motion-safe:animate-tm-slide">
+            A quiet day.{" "}
             {nextAfterSelected && (
               <button type="button" onClick={() => select(nextAfterSelected)} className="text-white underline underline-offset-4">
                 Next: {dayLabel(nextAfterSelected)}
@@ -233,8 +273,9 @@ function MonthCalendar({
       </div>
 
       <div className="mt-3 flex items-center justify-between gap-3 border-t border-white/10 pt-3 text-xs">
-        <Link href="/calendar" onClick={onNavigate} className="inline-flex items-center gap-1 font-medium hover:underline">
-          All upcoming dates <ArrowRight className="size-3.5" />
+        <Link href="/calendar" onClick={onNavigate} className="group/all inline-flex items-center gap-1 font-medium hover:underline">
+          All upcoming dates
+          <ArrowRight className="size-3.5 transition-[translate] duration-300 ease-spring group-hover/all:translate-x-1" />
         </Link>
         {sample && <span className="font-mono text-[10px] text-white/40 uppercase">Sample dates</span>}
       </div>
@@ -248,7 +289,7 @@ function MonthButton({ label, onClick, children }: { label: string; onClick: () 
       type="button"
       aria-label={label}
       onClick={onClick}
-      className="grid size-7 place-items-center rounded-full text-white/70 hover:bg-white/10 hover:text-white"
+      className="grid size-7 place-items-center rounded-full text-white/70 transition-[background-color,color,scale] duration-300 ease-spring hover:scale-110 hover:bg-white/10 hover:text-white active:scale-90"
     >
       {children}
     </button>

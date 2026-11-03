@@ -76,7 +76,7 @@ export default async function ProgramPage({
         </nav>
       )}
 
-      <section className="mt-12 grid gap-8 lg:grid-cols-[1.3fr_1fr]">
+      <section className="mt-6 grid grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] gap-4 sm:mt-12 sm:gap-8">
         <div>
           <p className="font-mono text-xs tracking-wide text-black/55 uppercase">{activeTab?.label ?? "Overview"}</p>
           <SectionHeading className="mt-2">

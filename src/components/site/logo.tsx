@@ -28,11 +28,11 @@ export function Wordmark({ className }: { className?: string }) {
   return (
     // Artwork: the link around it carries the accessible name.
     <span aria-hidden className={cn("inline-flex flex-col items-end leading-none", className)}>
-      <span className="font-display text-[15px] font-medium tracking-[0.04em]">
+      <span className="font-display text-[clamp(8.5px,2.4vw,15px)] font-medium tracking-[0.04em]">
         TRANSFORMATRIX
-        <sup className="ml-px text-[8px]">*</sup>
+        <sup className="ml-px text-[clamp(5px,1.2vw,8px)]">*</sup>
       </span>
-      <span className="mt-0.5 font-display text-[6.5px] tracking-[0.18em]">THE SOUL STUDIO</span>
+      <span className="mt-0.5 font-display text-[clamp(4px,1.05vw,6.5px)] tracking-[0.18em]">THE SOUL STUDIO</span>
     </span>
   );
 }
